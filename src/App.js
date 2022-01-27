@@ -110,7 +110,7 @@ class App extends Component {
         if (!this.state.list.length) {
           return (
             <div className='App'>
-              <p>Loading...</p>
+              <p className="loading">Loading...</p>
             </div>
           )
         }
