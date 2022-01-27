@@ -5,7 +5,7 @@
 .App {
   text-align: center;
   background-image: url('../images/bg.png');
-  background-color: rgb(255, 247, 225);
+  background-color: rgb(255, 246, 218);
   background-size:35%;
   background-repeat: no-repeat;
   width: 100vw;
@@ -15,7 +15,6 @@
 .App h1 {
   padding-top: 50px;
   font-size: 56px;
-  text-shadow: black 0.1em 0.1em 0.4em
 }
 
 .App h3 {

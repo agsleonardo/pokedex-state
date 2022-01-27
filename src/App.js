@@ -18,15 +18,10 @@ class App extends Component {
       onScreen: 0,
       list: [],
     }
-    this.setPokemons = this.setPokemons.bind(this);
-    this.nextPokemon = this.nextPokemon.bind(this);
-    this.handleCatch = this.handleCatch.bind(this);
     this.getNames();
   }
   
-  stringToUpperCase (string) {
-    return `${string.substring(0,1).toUpperCase()}${string.slice(1)}`
-  }
+  stringToUpperCase = (string) => `${string.substring(0,1).toUpperCase()}${string.slice(1)}`
   
   findIds(type) {
     if (!type || type === 'All') return this.state.list.map((poke) => poke.id);
@@ -81,7 +76,7 @@ class App extends Component {
         }
       }
       
-      setPokemons(type) {
+      setPokemons = (type) => {
         const set = this.findIds(type);
         const flag = set.length > 1 ? false : true
         this.setState({
@@ -92,14 +87,14 @@ class App extends Component {
         })
       }
       
-      handleCatch (event) {
+      handleCatch = (event) => {
         this.setState({
           ...this.state,
           catch: event.target.value
         })
       }
       
-      nextPokemon() {
+      nextPokemon = () => {
         this.setState((state) => ({
           ...state,
           onScreen: state.selecteds[state.selecteds.indexOf(state.onScreen)+1] || state.selecteds[0]
