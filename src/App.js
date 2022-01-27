@@ -115,7 +115,7 @@ class App extends Component {
           <div className="App">
             <h1> Pokedex </h1><br />
             <h2>Quantos pokemons você deseja capturar?</h2>
-            <div className="teste">
+            <div className="catch-container">
               <input name="catch" type="number" onChange={this.handleCatch} min="1"/>
               <button onClick={() => this.getNames(this.state.catch)}>Capturar!</button>
             </div>
