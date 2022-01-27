@@ -92,7 +92,9 @@ class App extends Component {
       <div className="App">
         <h1> Pokedex </h1>
         <Pokedex pokemons={this.state.list.filter(({id}) => id === this.state.onScreen)} />
-        {/* <Pokedex pokemons={this.state.list} /> */}
+        <h3>
+          { `${this.state.selecteds.indexOf(this.state.onScreen)+1} de ${this.state.selecteds.length}` }
+        </h3>
         <div className="button-cointainer">
           {
             pokeTypes.map((type, idx) => (
