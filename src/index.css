@@ -8,7 +8,9 @@ body {
 }
 
 .pokemon {
+  padding: 10px;
   display: flex;
+  background-color: rgb(255, 244, 181);
   align-items: center;
   justify-content: center;
   min-height: 450px;
@@ -16,10 +18,15 @@ body {
   margin: 10px 10px;
   border: 1px gray solid;
   border-radius: 10px;
+  box-shadow: 5px 5px;
 }
 
 .pokemon img {
   width: 250px;
+  border: solid 1px black;
+  border-radius: 180px;
+  margin: 50px;
+  background-color:rgb(255, 255, 255);
 }
 
 .pokedex {
@@ -27,4 +34,22 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   margin: 10px 10px;
+}
+
+.name {
+  font-size: 35px;
+  text-decoration: underline;
+}
+
+.desc {
+  margin-top: 20px;
+  font-size: 18px;
+  font-style: oblique;
+}
+
+.button-container{
+  margin: 0 auto;
+  display: block;
+  width: 35%;
+  align-items: center;
 }

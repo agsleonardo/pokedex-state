@@ -50,9 +50,9 @@ class App extends Component {
         axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
         .then(({ data }) => this.setState((state) => (
           {...state,
-            onScreen: this.state.selecteds[0],
-            selecteds: [...this.state.selecteds, data.id],
-            list: [...this.state.list,
+            onScreen: state.selecteds[0],
+            selecteds: [...state.selecteds, data.id],
+            list: [...state.list,
               {
                 id: data.id,
                 name: this.stringToUpperCase(data.name),
@@ -99,14 +99,14 @@ class App extends Component {
             <h3>
             { `${this.state.selecteds.indexOf(this.state.onScreen)+1} de ${this.state.selecteds.length}` }
             </h3>
-            <div className="button-cointainer">
+            <div className="button-container">
             {
               pokeTypes.map((type, idx) => (
                 <Button key={ idx } type={this.stringToUpperCase(type)} onClick={() => this.setPokemons(type)}/>
                 ))
               }
               </div>
-              <Button  type="Próximo pokemon" onClick={this.nextPokemon} disabled={this.state.next} style={this.state.style} />
+              <Button  type="Próximo pokemon ->" onClick={this.nextPokemon} disabled={this.state.next} style={this.state.style} />
             </div>
             </>
             );
