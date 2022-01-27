@@ -10,7 +10,6 @@ class App extends Component {
 
   constructor() {
     super();
-    this.names = [];
     const ids = this.findIds();
     this.state = {
       selecteds: ids,
@@ -19,8 +18,8 @@ class App extends Component {
     }
     this.setPokemons = this.setPokemons.bind(this);
     this.nextPokemon = this.nextPokemon.bind(this);
-    this.getPoke();
     this.getNames();
+    // this.getPoke();
   }
   findIds(type) {
     if (!type || type === 'All') return pokemons.map((poke) => poke.id);
@@ -29,27 +28,52 @@ class App extends Component {
       ), [])
     }
     
-    async getNames () {
-      this.names = await axios('https://pokeapi.co/api/v2/pokemon?limit=100')
-      .then(({ data }) => data.results.map((poke) => poke.name))
+  async getNames () {
+      axios('https://pokeapi.co/api/v2/pokemon?limit=100')
+      .then(({ data }) => {
+        this.setState((state) => ({
+          ...state,
+          names: data.results.map((poke) => poke.name)
+        })
+        )
+        this.getPoke();
+    })
+
     .catch((err) => console.log(err))
+
   }
 
   getPoke () {
-    axios('https://pokeapi.co/api/v2/pokemon/pikachu')
-    .then(({ data }) => this.setState((state) => ({...state, teste: [{
-      id: data.id,
-      name: data.name,
-      averageWeight : {value: data.weight, measurementUnit: 'kg'},
-      image: data.sprites.front_default
-    }]})))
+    // axios(`https://pokeapi.co/api/v2/pokemon/pikachu`)
+    // .then(({ data }) => this.setState((state) => ({...state, teste: [{
+    //   id: data.id,
+    //   name: data.name,
+    //   averageWeight : {value: data.weight, measurementUnit: 'kg'},
+    //   image: data.sprites.front_default
+    // }]})))
+    // .catch((err) => console.log(err))
+    // console.log(this.state.names);
+    this.state.names.forEach((name) => {
+    axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    .then(({ data }) => this.setState((state) => (
+        {...state, 
+          teste: [
+                  {
+                    id: data.id,
+                    name: data.name,
+                    averageWeight : {value: data.weight, measurementUnit: 'kg'},
+                    image: data.sprites.front_default
+                  }
+                ]
+        }
+      )))
     .catch((err) => console.log(err))
+    })
   }
 
   setPokemons(type) {
     const set = this.findIds(type);
     const flag = set.length > 1 ? false : true
-    console.log(this.names);
     this.setState({
       selecteds: set,
       onScreen: set[0],
