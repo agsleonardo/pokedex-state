@@ -20,10 +20,14 @@ class App extends Component {
     this.getNames();
   }
 
+  stringToUpperCase (string) {
+    return `${string.substring(0,1).toUpperCase()}${string.slice(1)}`
+  }
+
   findIds(type) {
     if (!type || type === 'All') return this.state.list.map((poke) => poke.id);
     return this.state.list.reduce((acc, cur) => (
-      cur.type === type.toLowerCase() ? acc.push(cur.id) && acc : acc
+      cur.type === type ? acc.push(cur.id) && acc : acc
       ), [])
     }
     
@@ -51,10 +55,10 @@ class App extends Component {
           list: [...this.state.list,
                   {
                     id: data.id,
-                    name: data.name,
+                    name: this.stringToUpperCase(data.name),
                     averageWeight : {value: data.weight/10, measurementUnit: 'kg'},
                     image: data.sprites.front_default,
-                    type: data.types[0].type.name
+                    type: this.stringToUpperCase(data.types[0].type.name)
                   }
                 ]
         }
@@ -97,7 +101,7 @@ class App extends Component {
         <div className="button-cointainer">
           {
             pokeTypes.map((type, idx) => (
-              <Button key={ idx } type={type} onClick={() => this.setPokemons(type)}/>
+              <Button key={ idx } type={this.stringToUpperCase(type)} onClick={() => this.setPokemons(type)}/>
             ))
           }
         </div>
