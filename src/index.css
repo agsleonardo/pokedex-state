@@ -11,12 +11,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1 1 auto;
-  min-width: 25%;
-  max-width: 25%;
+  min-height: 450px;
+  min-width: 30%;
   margin: 10px 10px;
   border: 1px gray solid;
   border-radius: 10px;
+}
+
+.pokemon img {
+  width: 250px;
 }
 
 .pokedex {
