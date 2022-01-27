@@ -9,10 +9,13 @@ class App extends Component {
   
   constructor() {
     super();
+    this.style = {
+      orange: {backgroundColor: '#fa6400'},
+      gray: {backgroundColor:'#a9a9a9'}
+    }
     this.state = {
       selecteds: [],
       onScreen: 0,
-      next: false,
       list: [],
     }
     this.setPokemons = this.setPokemons.bind(this);
@@ -32,7 +35,7 @@ class App extends Component {
     }
     
     async getNames () {
-      axios('https://pokeapi.co/api/v2/pokemon?limit=100')
+      axios('https://pokeapi.co/api/v2/pokemon?limit=1')
       .then(({ data }) => {
         this.setState((state) => ({
           ...state,
@@ -50,8 +53,10 @@ class App extends Component {
         axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
         .then(({ data }) => this.setState((state) => (
           {...state,
-            onScreen: state.selecteds[0],
+            onScreen: state.selecteds[0] || data.id,
             selecteds: [...state.selecteds, data.id],
+            next: !state.selecteds.length ? true : false,
+            style: !state.selecteds.length ? this.style.gray : this.style.orange,
             list: [...state.list,
               {
                 id: data.id,
@@ -74,7 +79,7 @@ class App extends Component {
           selecteds: set,
           onScreen: set[0],
           next: flag,
-          style: flag ? {backgroundColor:'#a9a9a9'} : {backgroundColor: '#fa6400'}
+          style: flag ? this.style.gray : this.style.orange
         })
       }
       
