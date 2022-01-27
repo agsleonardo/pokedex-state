@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import './Button.css';
 import Button from './Components/Button';
-import { pokemons } from './data';
 import Pokedex from './Pokedex';
 import axios from 'axios';
 
