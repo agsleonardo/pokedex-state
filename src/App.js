@@ -46,7 +46,9 @@ class App extends Component {
     this.state.names.forEach((name) => {
     axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(({ data }) => this.setState((state) => (
-        {...state, 
+        {...state,
+          onScreen: this.state.selecteds[0],
+          selecteds: [...this.state.selecteds, data.id],
           list: [...this.state.list,
                   {
                     id: data.id,
@@ -81,7 +83,7 @@ class App extends Component {
   }
   
   render() {
-    if (!this.state.list) {
+    if (!this.state.list.length) {
       return <p>Carregando...</p>
     }
     const pokeTypes = [...new Set(this.state.list.map((poke) => poke.type))];
