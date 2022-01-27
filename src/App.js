@@ -14,7 +14,8 @@ class App extends Component {
     this.state = {
       selecteds: ids,
       onScreen: ids[0],
-      next: false
+      next: false,
+      teste: [],
     }
     this.setPokemons = this.setPokemons.bind(this);
     this.nextPokemon = this.nextPokemon.bind(this);
@@ -57,7 +58,7 @@ class App extends Component {
     axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(({ data }) => this.setState((state) => (
         {...state, 
-          teste: [
+          teste: [...this.state.teste,
                   {
                     id: data.id,
                     name: data.name,
