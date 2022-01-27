@@ -51,7 +51,7 @@ class App extends Component {
                   {
                     id: data.id,
                     name: data.name,
-                    averageWeight : {value: data.weight, measurementUnit: 'kg'},
+                    averageWeight : {value: data.weight/10, measurementUnit: 'kg'},
                     image: data.sprites.front_default,
                     type: data.types[0].type.name
                   }
