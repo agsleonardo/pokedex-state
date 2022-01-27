@@ -6,7 +6,7 @@
   text-align: center;
   background-image: url('../images/bg.png');
   background-color: rgb(255, 240, 193);
-  background-size:35%;
+  background-size:20%;
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
@@ -23,4 +23,14 @@
   color: rgb(0, 0, 0);
   text-shadow: rgb(250, 100, 0) 0.1em 0.1em 0.1em
 
+}
+
+input {
+  height:45px;
+  width: 65px;
+}
+
+.teste {
+  display: inline-flex;
+  align-items: center;
 }

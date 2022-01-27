@@ -20,6 +20,7 @@ class App extends Component {
     }
     this.setPokemons = this.setPokemons.bind(this);
     this.nextPokemon = this.nextPokemon.bind(this);
+    this.handleCatch = this.handleCatch.bind(this);
     this.getNames();
   }
   
@@ -34,8 +35,14 @@ class App extends Component {
       ), [])
     }
     
-    async getNames () {
-      axios('https://pokeapi.co/api/v2/pokemon?limit=1')
+    async getNames (number=1) {
+      this.setState((state) => ({
+        ...state,
+        names: [],
+        list: [],
+        selecteds: []
+      }))
+      axios(`https://pokeapi.co/api/v2/pokemon?limit=${number}`)
       .then(({ data }) => {
         this.setState((state) => ({
           ...state,
@@ -83,6 +90,13 @@ class App extends Component {
         })
       }
       
+      handleCatch (event) {
+        this.setState({
+          ...this.state,
+          catch: event.target.value
+        })
+      }
+      
       nextPokemon() {
         this.setState((state) => ({
           ...state,
@@ -99,7 +113,12 @@ class App extends Component {
         return (
           <>
           <div className="App">
-            <h1> Pokedex </h1>
+            <h1> Pokedex </h1><br />
+            <h2>Quantos pokemons você deseja capturar?</h2>
+            <div className="teste">
+              <input name="catch" type="number" onChange={this.handleCatch} min="1"/>
+              <button onClick={() => this.getNames(this.state.catch)}>Capturar!</button>
+            </div>
             <Pokedex pokemons={this.state.list.filter(({id}) => id === this.state.onScreen)} />
             <h3>
             { `${this.state.selecteds.indexOf(this.state.onScreen)+1} de ${this.state.selecteds.length}` }
