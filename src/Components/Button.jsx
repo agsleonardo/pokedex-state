@@ -10,7 +10,6 @@ export default class Button extends Component {
         disabled={disabled}
         style={style}
       >
-        {/* { `${type.substring(0,1).toUpperCase()}${type.slice(1)}` } */}
         { type }
       </button>
     )
