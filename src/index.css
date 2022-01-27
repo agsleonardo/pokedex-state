@@ -10,9 +10,10 @@ body {
 .pokemon {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex: 1 1 auto;
   min-width: 25%;
+  max-width: 25%;
   margin: 10px 10px;
   border: 1px gray solid;
   border-radius: 10px;
@@ -20,6 +21,7 @@ body {
 
 .pokedex {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin: 10px 10px;
 }

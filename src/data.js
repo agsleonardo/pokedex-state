@@ -1,3 +1,9 @@
+ //Get pokemons names
+
+//Get information about each pokemon
+
+//Format info
+
 const pokemons = [
   {
       id: 25,
@@ -100,4 +106,6 @@ const pokemons = [
   }
 ];
 
-export default pokemons;
+// export default pokemons;
+
+module.exports =  { pokemons }
