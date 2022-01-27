@@ -42,7 +42,7 @@ class App extends Component {
         list: [],
         selecteds: []
       }))
-      axios(`https://pokeapi.co/api/v2/pokemon?limit=${number}`)
+      axios(`https://pokeapi.co/api/v2/pokemon?limit=${number}&offset=${Math.random() * (200 - 1) + 1}`)
       .then(({ data }) => {
         this.setState((state) => ({
           ...state,
@@ -56,27 +56,29 @@ class App extends Component {
     }
     
     getPoke () {
-      this.state.names.forEach((name) => {
-        axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
-        .then(({ data }) => this.setState((state) => (
-          {...state,
-            onScreen: state.selecteds[0] || data.id,
-            selecteds: [...state.selecteds, data.id],
-            next: !state.selecteds.length ? true : false,
-            style: !state.selecteds.length ? this.style.gray : this.style.orange,
-            list: [...state.list,
-              {
-                id: data.id,
-                name: this.stringToUpperCase(data.name),
-                averageWeight : {value: data.weight/10, measurementUnit: 'kg'},
-                image: data.sprites.front_default,
-                type: this.stringToUpperCase(data.types[0].type.name)
-              }
-            ]
-          }
-          )))
-          .catch((err) => console.log(err))
-        })
+      if (this.state.names) {
+        this.state.names.forEach((name) => {
+          axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
+          .then(({ data }) => this.setState((state) => (
+            {...state,
+              onScreen: state.selecteds[0] || data.id,
+              selecteds: [...state.selecteds, data.id],
+              next: !state.selecteds.length ? true : false,
+              style: !state.selecteds.length ? this.style.gray : this.style.orange,
+              list: [...state.list,
+                {
+                  id: data.id,
+                  name: this.stringToUpperCase(data.name),
+                  averageWeight : {value: data.weight/10, measurementUnit: 'kg'},
+                  image: data.sprites.front_default,
+                  type: this.stringToUpperCase(data.types[0].type.name)
+                }
+              ]
+            }
+            )))
+            .catch((err) => console.log(err))
+          })
+        }
       }
       
       setPokemons(type) {
@@ -106,31 +108,35 @@ class App extends Component {
       
       render() {
         if (!this.state.list.length) {
-          return <p>Carregando...</p>
+          return (
+            <div className='App'>
+              <p>Carregando...</p>
+            </div>
+          )
         }
         const pokeTypes = [...new Set(this.state.list.map((poke) => poke.type))];
         pokeTypes.unshift('All');
         return (
           <>
           <div className="App">
-            <h1> Pokedex </h1><br />
-            <h2>Quantos pokemons você deseja capturar?</h2>
-            <div className="catch-container">
-              <input name="catch" type="number" onChange={this.handleCatch} min="1"/>
-              <button onClick={() => this.getNames(this.state.catch)}>Capturar!</button>
+          <h1> Pokedex </h1><br />
+          <h2>Quantos pokemons você deseja capturar?</h2>
+          <div className="catch-container">
+          <input name="catch" type="number" onChange={this.handleCatch} min="1"/>
+          <button onClick={() => this.getNames(this.state.catch)}>Capturar!</button>
+          </div>
+          <Pokedex pokemons={this.state.list.filter(({id}) => id === this.state.onScreen)} />
+          <h3>
+          { `${this.state.selecteds.indexOf(this.state.onScreen)+1} de ${this.state.selecteds.length}` }
+          </h3>
+          <div className="button-container">
+          {
+            pokeTypes.map((type, idx) => (
+              <Button key={ idx } type={this.stringToUpperCase(type)} onClick={() => this.setPokemons(type)}/>
+              ))
+            }
             </div>
-            <Pokedex pokemons={this.state.list.filter(({id}) => id === this.state.onScreen)} />
-            <h3>
-            { `${this.state.selecteds.indexOf(this.state.onScreen)+1} de ${this.state.selecteds.length}` }
-            </h3>
-            <div className="button-container">
-            {
-              pokeTypes.map((type, idx) => (
-                <Button key={ idx } type={this.stringToUpperCase(type)} onClick={() => this.setPokemons(type)}/>
-                ))
-              }
-              </div>
-              <Button  type="Próximo Pokemon >>" onClick={this.nextPokemon} disabled={this.state.next} style={this.state.style} />
+            <Button  type="Próximo Pokemon >>" onClick={this.nextPokemon} disabled={this.state.next} style={this.state.style} />
             </div>
             </>
             );
