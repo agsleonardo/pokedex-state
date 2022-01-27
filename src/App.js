@@ -10,22 +10,22 @@ class App extends Component {
 
   constructor() {
     super();
-    const ids = this.findIds();
+    // const ids = this.findIds();
     this.state = {
-      selecteds: ids,
-      onScreen: ids[0],
+      selecteds: [],
+      onScreen: 0,
       next: false,
-      teste: [],
+      list: [],
     }
     this.setPokemons = this.setPokemons.bind(this);
     this.nextPokemon = this.nextPokemon.bind(this);
     this.getNames();
-    // this.getPoke();
   }
+
   findIds(type) {
-    if (!type || type === 'All') return pokemons.map((poke) => poke.id);
-    return pokemons.reduce((acc, cur) => (
-      cur.type === type ? acc.push(cur.id) && acc : acc
+    if (!type || type === 'All') return this.state.list.map((poke) => poke.id);
+    return this.state.list.reduce((acc, cur) => (
+      cur.type === type.toLowerCase() ? acc.push(cur.id) && acc : acc
       ), [])
     }
     
@@ -41,29 +41,20 @@ class App extends Component {
     })
 
     .catch((err) => console.log(err))
-
   }
 
   getPoke () {
-    // axios(`https://pokeapi.co/api/v2/pokemon/pikachu`)
-    // .then(({ data }) => this.setState((state) => ({...state, teste: [{
-    //   id: data.id,
-    //   name: data.name,
-    //   averageWeight : {value: data.weight, measurementUnit: 'kg'},
-    //   image: data.sprites.front_default
-    // }]})))
-    // .catch((err) => console.log(err))
-    // console.log(this.state.names);
     this.state.names.forEach((name) => {
     axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(({ data }) => this.setState((state) => (
         {...state, 
-          teste: [...this.state.teste,
+          list: [...this.state.list,
                   {
                     id: data.id,
                     name: data.name,
                     averageWeight : {value: data.weight, measurementUnit: 'kg'},
-                    image: data.sprites.front_default
+                    image: data.sprites.front_default,
+                    type: data.types[0].type.name
                   }
                 ]
         }
@@ -91,16 +82,16 @@ class App extends Component {
   }
   
   render() {
-    if (!this.state.teste) {
+    if (!this.state.list) {
       return <p>Carregando...</p>
     }
-    const pokeTypes = [...new Set(pokemons.map((poke) => poke.type))];
+    const pokeTypes = [...new Set(this.state.list.map((poke) => poke.type))];
     pokeTypes.unshift('All');
     return (
       <div className="App">
         <h1> Pokedex </h1>
         {/* <Pokedex pokemons={pokemons.filter(({id}) => id === this.state.onScreen)} /> */}
-        <Pokedex pokemons={this.state.teste} />
+        <Pokedex pokemons={this.state.list} />
         <div className="button-cointainer">
           {
             pokeTypes.map((type, idx) => (
