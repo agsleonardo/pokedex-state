@@ -4,8 +4,9 @@
 
 .App {
   text-align: center;
-  background-image: url('../images/bg.jpg');
-  background-size: cover;
+  background-image: url('../images/bg.png');
+  background-color: rgb(255, 240, 193);
+  background-size:550px;
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
@@ -13,5 +14,13 @@
 
 .App h1 {
   padding-top: 50px;
-  font-size: 48px;
+  font-size: 56px;
+  text-shadow: black 0.1em 0.1em 0.4em
+}
+
+.App h3 {
+  font-size: 30px;
+  color: rgb(0, 0, 0);
+  text-shadow: rgb(250, 100, 0) 0.1em 0.1em 0.1em
+
 }

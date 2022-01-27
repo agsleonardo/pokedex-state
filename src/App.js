@@ -106,7 +106,7 @@ class App extends Component {
                 ))
               }
               </div>
-              <Button  type="Próximo pokemon ->" onClick={this.nextPokemon} disabled={this.state.next} style={this.state.style} />
+              <Button  type="Próximo Pokemon >>" onClick={this.nextPokemon} disabled={this.state.next} style={this.state.style} />
             </div>
             </>
             );
