@@ -10,7 +10,6 @@ class App extends Component {
 
   constructor() {
     super();
-    // const ids = this.findIds();
     this.state = {
       selecteds: [],
       onScreen: 0,
@@ -90,8 +89,8 @@ class App extends Component {
     return (
       <div className="App">
         <h1> Pokedex </h1>
-        {/* <Pokedex pokemons={pokemons.filter(({id}) => id === this.state.onScreen)} /> */}
-        <Pokedex pokemons={this.state.list} />
+        <Pokedex pokemons={this.state.list.filter(({id}) => id === this.state.onScreen)} />
+        {/* <Pokedex pokemons={this.state.list} /> */}
         <div className="button-cointainer">
           {
             pokeTypes.map((type, idx) => (
