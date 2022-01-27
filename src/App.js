@@ -123,7 +123,7 @@ class App extends Component {
           <h2>Quantos pokemons você deseja capturar?</h2>
           <div className="catch-container">
           <input name="catch" type="number" onChange={this.handleCatch} min="1"/>
-          <button onClick={() => this.getNames(this.state.catch)}>Capturar!</button>
+          <button onClick={() => this.getNames(this.state.catch)}>Eu escolho você!!!</button>
           </div>
           <Pokedex pokemons={this.state.list.filter(({id}) => id === this.state.onScreen)} />
           <h3>
